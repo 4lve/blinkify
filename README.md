@@ -1,6 +1,6 @@
 # Blinkify
 
-Blinkify is a lightweight npm package that simplifies the creation of Solana Actions-compatible API endpoints. It provides an easy-to-use interface for creating interactive blockchain experiences.
+Blinkify is a lightweight npm package that simplifies the creation of Solana Actions-compatible API endpoints.
 
 ## Installation
 
@@ -20,7 +20,7 @@ npm install blinkify
 
 ### Minimal Example
 
-#### Note: If you are using Node.js instead of Bun you need to use the serve function instead of exporting, more info can be found [here](https://hono.dev/docs/getting-started/nodej)
+#### Note: If you are using Node.js instead of Bun you need to use the serve function instead of exporting, more info can be found [here](https://hono.dev/docs/getting-started/nodejs)
 
 ```typescript
 import { createBlink, InputType } from "blinkify";
@@ -140,7 +140,7 @@ export default {
 
 # Blinkify API Reference
 
-## `createBlink(options)`
+### `createBlink(options)`
 
 Creates a Blinkify application.
 
