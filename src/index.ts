@@ -48,12 +48,15 @@ export function createBlink(props: {
     customCors?: boolean;
     customApiPath?: string;
   };
-  fetchBlink: (c: Context) => Promise<FetchBlinkResponse> | FetchBlinkResponse;
+  fetchBlink: (
+    c: Context,
+    userContext?: Record<string, string>
+  ) => Promise<FetchBlinkResponse> | FetchBlinkResponse;
   createTransaction: (
     c: Context,
     account: string,
-    inputValues: (string | null)[],
-    context?: Record<string, string>
+    inputValues: string[],
+    userContext?: Record<string, string>
   ) => Promise<CreateTransactionResponse> | CreateTransactionResponse;
 }) {
   const app = props.settings?.app ? props.settings.app : new Hono();
@@ -71,13 +74,13 @@ export function createBlink(props: {
   }
 
   app.get(apiPath, async (c) => {
-    const data = await props.fetchBlink(c);
+    const data = await props.fetchBlink(c, c.req.query());
 
     return c.json<ActionGetResponse>({
       title: data.title,
       description: data.description,
       icon: data.iconUrl,
-      label: "...", // This is pretty much useless
+      label: "Powered by Blinkify", // This is only shown when not using linked actions (which we always do), but is required
       links: {
         actions: data.inputs.map((input): LinkedAction => {
           const urlContext = new URLSearchParams(input.context).toString();
@@ -113,12 +116,9 @@ export function createBlink(props: {
   });
 
   app.post(apiPath + "/*", async (c) => {
-    let values: (string | null)[] = c.req.path.replace(apiPath, "").split("/");
+    let values: string[] = c.req.path.replace(apiPath, "").split("/");
     values.shift();
     values = values.map((v) => {
-      if (v === "") {
-        return null;
-      }
       return decodeURIComponent(v!);
     });
 
