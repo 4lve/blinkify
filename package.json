@@ -15,20 +15,20 @@
     "bun"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/wobsoriano/pkg-name#readme",
+  "homepage": "https://github.com/4lve/blinkify#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wobsoriano/pkg-name.git"
+    "url": "git+https://github.com/4lve/blinkify.git"
   },
-  "bugs": "https://github.com/wobsoriano/pkg-name/issues",
-  "author": "Robert Soriano <sorianorobertc@gmail.com>",
+  "bugs": "https://github.com/4lve/blinkify/issues",
+  "author": "4lve <4lve4lve@gmail.com>",
   "devDependencies": {
     "bun-plugin-dts": "^0.2.3",
     "@types/bun": "^1.1.6",
     "typescript": "^5.5.3",
     "@solana/actions": "^1.2.0"
   },
-  "dependencies": {
-    "hono": "^4.5.0"
+  "peerDependencies": {
+    "hono": "4.5.0"
   }
 }

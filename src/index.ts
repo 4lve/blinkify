@@ -6,7 +6,7 @@ import type {
 import { Hono, type Context } from "hono";
 import { cors } from "hono/cors";
 
-export const enum InputType {
+export enum InputType {
   Button,
   Form,
 }
