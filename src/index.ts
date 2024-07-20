@@ -60,11 +60,11 @@ export function createBlink(props: {
   ) => Promise<CreateTransactionResponse> | CreateTransactionResponse;
 }) {
   const app = props.settings?.app ? props.settings.app : new Hono();
-  const apiPath = props.settings?.customApiPath || "";
+  const apiPath = props.settings?.customApiPath || "/";
 
   if (!props.settings?.customCors) {
     app.use(
-      "/*",
+      `${apiPath}*`,
       cors({
         allowMethods: ["GET", "POST", "OPTIONS"],
         origin: "*",
@@ -89,7 +89,7 @@ export function createBlink(props: {
             return {
               href:
                 apiPath +
-                "/" +
+                (apiPath.endsWith("/") ? "" : "/") +
                 encodeURIComponent(input.value) +
                 (urlContext ? `?${urlContext}` : ""),
               label: input.buttonText,
@@ -99,7 +99,7 @@ export function createBlink(props: {
           return {
             href:
               apiPath +
-              "/" +
+              (apiPath.endsWith("/") ? "" : "/") +
               input.fields.map((v, index) => `{${index}}`).join("/") +
               (urlContext ? `?${urlContext}` : ""),
 
@@ -115,7 +115,7 @@ export function createBlink(props: {
     });
   });
 
-  app.post(apiPath + "/*", async (c) => {
+  app.post(apiPath + (apiPath.endsWith("/") ? "" : "/") + "*", async (c) => {
     let values: string[] = c.req.path.replace(apiPath, "").split("/");
     values.shift();
     values = values.map((v) => {
